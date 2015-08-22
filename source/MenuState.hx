@@ -22,6 +22,8 @@ class MenuState extends FlxState
 	
 	var roomBarriers:FlxGroup = new FlxGroup();
 	
+	var progress:CostumeProgess;
+	
 	/**
 	 * Function that is called up when to state is created to set it up.
 	 */
@@ -75,6 +77,9 @@ class MenuState extends FlxState
 		player.setPositionUsingCenter(80, 60);
 		player.solid = true;
 		add(player);
+		
+		progress = new CostumeProgess(this);
+		progress.setPosition(130, 0);
 	}
 
 	/**
@@ -125,5 +130,16 @@ class MenuState extends FlxState
 		{
 			player.x = 142 - player.width;
 		}
+		
+		if (FlxG.keys.justPressed.ONE)
+			Reg.GotHead = !Reg.GotHead;
+		if (FlxG.keys.justPressed.TWO)
+			Reg.GotBody = !Reg.GotBody;
+		if (FlxG.keys.justPressed.THREE)
+			Reg.GotHands = !Reg.GotHands;
+		if (FlxG.keys.justPressed.FOUR)
+			Reg.GotFeet = !Reg.GotFeet;
+		if (FlxG.keys.justPressed.FIVE)
+			Reg.GotTail = !Reg.GotTail;
 	}
 }

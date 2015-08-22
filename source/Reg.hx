@@ -9,5 +9,10 @@ import flixel.util.FlxSave;
  */
 class Reg
 {
-	
+	public static var GotHead:Bool = false;
+	public static var GotBody:Bool = false;
+	public static var GotHands:Bool = false;
+	public static var GotFeet:Bool = false;
+	public static var GotTail:Bool = false;
+	public static var ItemCount:Int = 0;
 }
