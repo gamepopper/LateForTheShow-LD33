@@ -3,6 +3,7 @@ package;
 import flixel.addons.text.FlxTypeText;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 
@@ -28,6 +29,7 @@ class EndingState extends FlxState
 	private var tail:FlxSprite = new FlxSprite();
 	
 	private var continued:Bool = false;
+	var talkB:FlxSound = new FlxSound();
 	
 	public function new(endingType:Endings) 
 	{
@@ -73,10 +75,12 @@ class EndingState extends FlxState
 		head.visible = Reg.GotHead && person.visible;
 		add(head);
 		
+		talkB.loadEmbedded("assets/sounds/talk1.wav");
+		
 		text = new FlxTypeText(0, 0, 160, "", 8);
 		text.setTypingVariation(0.02, true);
 		text.color = FlxColor.BLACK;
-		text.useDefaultSound = true;
+		text.sounds = [talkB];
 		
 		if (endingType == LATE)
 			text.resetText("YOU FAILED TO SHOW UP ON TIME, THE SHOW IS A DISASTER! GOOD JOB.");

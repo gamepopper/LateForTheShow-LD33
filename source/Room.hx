@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
+import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -42,6 +43,9 @@ class Room
 	
 	private var showGotItem:Bool = false;
 	private var revertTimer:FlxTimer = new FlxTimer();
+	
+	private var successSound:FlxSound = new FlxSound();
+	private var failSound:FlxSound = new FlxSound();
 	
 	public var hidingAreas:Array<HidingSpot> = new Array<HidingSpot>();
 	
@@ -143,6 +147,9 @@ class Room
 		state.add(text);
 		
 		this.player = player;
+		
+		successSound.loadEmbedded("assets/sounds/get.wav", false);
+		failSound.loadEmbedded("assets/sounds/fail.wav", false);
 	}
 	
 	public function update(elapsed:Float)
@@ -318,6 +325,7 @@ class Room
 			text.text = area.name.toUpperCase() + " FOUND";
 			showGotItem = true;
 			revertTimer.start(0.75, RevertToNormal, 1);
+			successSound.play();
 		}
 		else
 		{
@@ -330,5 +338,6 @@ class Room
 		text.text = "NOTHING HERE";
 		showGotItem = true;
 		revertTimer.start(0.75, RevertToNormal, 1);
+		failSound.play();
 	}
 }
