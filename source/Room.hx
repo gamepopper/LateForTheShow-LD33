@@ -54,7 +54,7 @@ class Room
 		
 		hidingAreas[1].SetPosition(new FlxPoint(151, 100)); 	//On Shelf
 		hidingAreas[3].SetPosition(new FlxPoint(15, 50)); 	//On Cupboard
-		hidingAreas[5].SetPosition(new FlxPoint(134, 70)); 	//On Desk
+		hidingAreas[5].SetPosition(new FlxPoint(134, 75)); 	//On Desk
 		hidingAreas[8].SetPosition(new FlxPoint(28, 30));		//On Boxes
 		
 		var leftWall:FlxSprite = new FlxSprite();
@@ -315,7 +315,7 @@ class Room
 			area.visible = false;
 			area.sprite.visible = false;
 			
-			text.text = area.name.toUpperCase() + "FOUND";
+			text.text = area.name.toUpperCase() + " FOUND";
 			showGotItem = true;
 			revertTimer.start(0.75, RevertToNormal, 1);
 		}
