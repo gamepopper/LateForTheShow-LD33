@@ -20,19 +20,19 @@ class CostumeProgess extends FlxSprite
 	{
 		super(0, 0);
 		loadGraphic("assets/images/PersonSmall.png");
-		head.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Head.png");
+		head.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Head.png");
 		head.visible = false;
 		group.add(head);
-		body.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Body.png");
+		body.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Body.png");
 		body.visible = false;
 		group.add(body);
-		hand.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Hands.png");
+		hand.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Hands.png");
 		hand.visible = false;
 		group.add(hand);
-		feet.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Feet.png");
+		feet.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Feet.png");
 		feet.visible = false;
 		group.add(feet);
-		tail.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Tail.png");
+		tail.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Tail.png");
 		tail.visible = false;
 		group.add(tail);
 		

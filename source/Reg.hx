@@ -15,4 +15,5 @@ class Reg
 	public static var GotFeet:Bool = false;
 	public static var GotTail:Bool = false;
 	public static var ItemCount:Int = 0;
+	public static var ItemID:Int = 1;
 }

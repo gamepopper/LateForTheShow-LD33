@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
-import flixel.math.FlxRandom;
 import flixel.math.FlxVector;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -24,8 +23,6 @@ class PlayState extends FlxState
 	var time:Int = 15;
 	var text:FlxText;
 	var countdown:FlxTimer = new FlxTimer();
-	
-	var random:FlxRandom = new FlxRandom();
 	
 	private var head:FlxSprite = new FlxSprite();
 	private var body:FlxSprite = new FlxSprite();
@@ -47,6 +44,7 @@ class PlayState extends FlxState
 		Reg.GotHead = false;
 		Reg.GotTail = false;
 		Reg.ItemCount = 0;
+		Reg.ItemID = FlxG.random.int(1, 2);
 		
 		room = new Room(player, objectGroup, this);
 		player = new Player();
@@ -56,23 +54,23 @@ class PlayState extends FlxState
 		progress = new CostumeProgess(this);
 		progress.setPosition(130, 0);
 		
-		head.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Head.png");
+		head.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Head.png");
 		head.offset.y = -5;
 		add(head);
 		PlaceCostume("head", head);
-		body.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Body.png");
+		body.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Body.png");
 		body.offset.y = 5;
 		add(body);
 		PlaceCostume("body", body);
-		hand.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Hands.png");
+		hand.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Hands.png");
 		hand.offset.y = -1;
 		add(hand);
 		PlaceCostume("hands", hand);
-		feet.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Feet.png");
+		feet.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Feet.png");
 		feet.offset.y = 8;
 		add(feet);
 		PlaceCostume("feet", feet);
-		tail.loadGraphic("assets/images/Monsters/Monster" + 1 + "Small_Tail.png");
+		tail.loadGraphic("assets/images/Monsters/Monster" + Reg.ItemID + "Small_Tail.png");
 		tail.offset.y = 5;
 		add(tail);
 		PlaceCostume("tail", tail);
@@ -105,7 +103,7 @@ class PlayState extends FlxState
 	{
 		var hidingID:Int = 0;
 		
-		while (room.hidingAreas[(hidingID = random.int(0, 8))].name != "") { }
+		while (room.hidingAreas[(hidingID = FlxG.random.int(0, 8))].name != "") { }
 		
 		room.hidingAreas[hidingID].name = name;
 		sprite.setPositionUsingCenter(
