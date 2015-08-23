@@ -4,30 +4,59 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
+class HidingSpot
+{
+	public var name:String = "";
+	public var position:FlxPoint = new FlxPoint();
+	public var visible:Bool = false;
+	public var sprite:FlxSprite = null;
+	
+	public function new(){}
+	
+	public function SetPosition(pos:FlxPoint):Void
+	{
+		position = pos;
+		visible = true;
+	}
+}
+
 class Room
 {
-	var roomBarriers:FlxSpriteGroup = new FlxSpriteGroup();
-	var bg:FlxSprite = new FlxSprite();
-	var bed:FlxSprite = new FlxSprite();
-	var box:FlxSprite = new FlxSprite();
-	var shelf:FlxSprite = new FlxSprite();
-	var cupboard:FlxSprite = new FlxSprite();
-	var desk:FlxSprite = new FlxSprite();
-	var bags:FlxSprite = new FlxSprite();
+	private var roomBarriers:FlxSpriteGroup = new FlxSpriteGroup();
+	private var bg:FlxSprite = new FlxSprite();
+	private var bed:FlxSprite = new FlxSprite();
+	private var box:FlxSprite = new FlxSprite();
+	private var shelf:FlxSprite = new FlxSprite();
+	private var cupboard:FlxSprite = new FlxSprite();
+	private var desk:FlxSprite = new FlxSprite();
+	private var bags:FlxSprite = new FlxSprite();
 	
-	var text:FlxText = new FlxText(0, 0, FlxG.width, "");
+	private var text:FlxText = new FlxText(0, 0, FlxG.width, "");
 	
-	var player:FlxSprite;
+	private var player:FlxSprite;
 	
-	var showGotItem:Bool = false;
-	var revertTimer:FlxTimer = new FlxTimer();
+	private var showGotItem:Bool = false;
+	private var revertTimer:FlxTimer = new FlxTimer();
+	
+	public var hidingAreas:Array<HidingSpot> = new Array<HidingSpot>();
 	
 	public function new(player:FlxSprite, group:FlxSpriteGroup, state:FlxState) 
 	{
+		for (i in 0...9)
+		{
+			hidingAreas.push(new HidingSpot());
+		}
+		
+		hidingAreas[1].SetPosition(new FlxPoint(151, 100)); 	//On Shelf
+		hidingAreas[3].SetPosition(new FlxPoint(15, 50)); 	//On Cupboard
+		hidingAreas[5].SetPosition(new FlxPoint(134, 70)); 	//On Desk
+		hidingAreas[8].SetPosition(new FlxPoint(28, 30));		//On Boxes
+		
 		var leftWall:FlxSprite = new FlxSprite();
 		leftWall.makeGraphic(21, 120, FlxColor.TRANSPARENT);
 		leftWall.solid = true;
@@ -133,44 +162,15 @@ class Room
 				
 				if (FlxG.keys.anyPressed(["Z", "J"]))
 				{
-					
+					CheckItem(hidingAreas[0]);
 				}
 				if (FlxG.keys.anyPressed(["X", "K"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 				if (FlxG.keys.anyPressed(["C", "L"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
-				}
-			}
-		}
-		
-		if (FlxG.collide(player, bed))
-		{
-			if (!showGotItem)
-			{
-				text.text = "CHECK BED";
-				
-				if (FlxG.keys.anyPressed(["Z", "J"]))
-				{
-					
-				}
-				if (FlxG.keys.anyPressed(["X", "K"]))
-				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
-				}
-				if (FlxG.keys.anyPressed(["C", "L"]))
-				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 			}
 		}
@@ -183,19 +183,15 @@ class Room
 				
 				if (FlxG.keys.anyPressed(["Z", "J"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 				if (FlxG.keys.anyPressed(["X", "K"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 				if (FlxG.keys.anyPressed(["C", "L"]))
 				{
-					
+					CheckItem(hidingAreas[1]);
 				}
 			}
 		}
@@ -208,17 +204,15 @@ class Room
 				
 				if (FlxG.keys.anyPressed(["Z", "J"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 				if (FlxG.keys.anyPressed(["X", "K"]))
 				{
-					
+					CheckItem(hidingAreas[2]);
 				}
 				if (FlxG.keys.anyPressed(["C", "L"]))
 				{
-					
+					CheckItem(hidingAreas[3]);
 				}
 			}
 		}
@@ -231,19 +225,15 @@ class Room
 				
 				if (FlxG.keys.anyPressed(["Z", "J"]))
 				{
-					
+					CheckItem(hidingAreas[4]);
 				}
 				if (FlxG.keys.anyPressed(["X", "K"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 				if (FlxG.keys.anyPressed(["C", "L"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					CheckItem(hidingAreas[5]);
 				}
 			}
 		}
@@ -256,19 +246,36 @@ class Room
 				
 				if (FlxG.keys.anyPressed(["Z", "J"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
 				}
 				if (FlxG.keys.anyPressed(["X", "K"]))
 				{
-					
+					CheckItem(hidingAreas[6]);
 				}
 				if (FlxG.keys.anyPressed(["C", "L"]))
 				{
-					text.text = "NOTHING HERE";
-					showGotItem = true;
-					revertTimer.start(0.75, RevertToNormal, 1);
+					NothingHere();
+				}
+			}
+		}
+		
+		if (FlxG.collide(player, box))
+		{
+			if (!showGotItem)
+			{
+				text.text = "CHECK BOXES";
+				
+				if (FlxG.keys.anyPressed(["Z", "J"]))
+				{
+					NothingHere();
+				}
+				if (FlxG.keys.anyPressed(["X", "K"]))
+				{
+					CheckItem(hidingAreas[7]);
+				}
+				if (FlxG.keys.anyPressed(["C", "L"]))
+				{
+					CheckItem(hidingAreas[8]);
 				}
 			}
 		}
@@ -277,5 +284,51 @@ class Room
 	function RevertToNormal(timer:FlxTimer)
 	{
 		showGotItem = false;
+	}
+	
+	function CheckItem(area:HidingSpot)
+	{
+		if (area.name != "")
+		{
+			if (area.name == "head")
+			{
+				Reg.GotHead = true;
+			}
+			if (area.name == "body")
+			{
+				Reg.GotBody = true;
+			}
+			if (area.name == "hands")
+			{
+				Reg.GotHands = true;
+			}
+			if (area.name == "feet")
+			{
+				Reg.GotFeet = true;
+			}
+			if (area.name == "tail")
+			{
+				Reg.GotTail = true;
+			}
+			
+			Reg.ItemCount++;
+			area.visible = false;
+			area.sprite.visible = false;
+			
+			text.text = area.name.toUpperCase() + "FOUND";
+			showGotItem = true;
+			revertTimer.start(0.75, RevertToNormal, 1);
+		}
+		else
+		{
+			NothingHere();
+		}
+	}
+	
+	function NothingHere()
+	{
+		text.text = "NOTHING HERE";
+		showGotItem = true;
+		revertTimer.start(0.75, RevertToNormal, 1);
 	}
 }

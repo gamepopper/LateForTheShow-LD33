@@ -1,0 +1,23 @@
+Find five pieces of a monster costume in 15 seconds
+
+- Multiple endings
+- Items placed randomly on each playthrough
+- Changeable Options (Monster Outfit, Player Gender?)
+- Achievements
+
+Possible Hiding Spots
+- Under Bed ::
+- On Shelf ::
+- In Cupboard ::
+- On Cupboard
+- Under Desk ::
+- On Desk
+- In Bags
+- In Boxes ::
+- On Boxes
+
+Controls:
+WASD / Arrow Keys - Move
+Z / J - Check Under
+X / K - Check In
+C / L - Check Over
