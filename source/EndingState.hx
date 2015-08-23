@@ -4,6 +4,7 @@ import flixel.addons.text.FlxTypeText;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxColor;
+import flixel.FlxG;
 
 enum Endings
 {
@@ -26,6 +27,8 @@ class EndingState extends FlxState
 	private var feet:FlxSprite = new FlxSprite();
 	private var tail:FlxSprite = new FlxSprite();
 	
+	private var continued:Bool = false;
+	
 	public function new(endingType:Endings) 
 	{
 		super();
@@ -47,32 +50,33 @@ class EndingState extends FlxState
 		body.loadGraphic("assets/images/Monsters/Monster" + 1 + "__Body.png");
 		body.x = person.x;
 		body.y = person.y;
-		body.visible = Reg.GotBody;
+		body.visible = Reg.GotBody && person.visible;
 		add(body);
 		feet.loadGraphic("assets/images/Monsters/Monster" + 1 + "__Feet.png");
 		feet.x = person.x;
 		feet.y = person.y;
-		feet.visible = Reg.GotFeet;
+		feet.visible = Reg.GotFeet && person.visible;
 		add(feet);
 		hand.loadGraphic("assets/images/Monsters/Monster" + 1 + "__Hands.png");
 		hand.x = person.x;
 		hand.y = person.y;
-		hand.visible = Reg.GotHands;
+		hand.visible = Reg.GotHands && person.visible;
 		add(hand);
 		tail.loadGraphic("assets/images/Monsters/Monster" + 1 + "__Tail.png");
 		tail.x = person.x;
 		tail.y = person.y;
-		tail.visible = Reg.GotTail;
+		tail.visible = Reg.GotTail && person.visible;
 		add(tail);
 		head.loadGraphic("assets/images/Monsters/Monster" + 1 + "__Head.png");
 		head.x = person.x;
 		head.y = person.y;
-		head.visible = Reg.GotHead;
+		head.visible = Reg.GotHead && person.visible;
 		add(head);
 		
 		text = new FlxTypeText(0, 0, 160, "", 8);
 		text.setTypingVariation(0.02, true);
 		text.color = FlxColor.BLACK;
+		text.useDefaultSound = true;
 		
 		if (endingType == LATE)
 			text.resetText("YOU FAILED TO SHOW UP ON TIME, THE SHOW IS A DISASTER! GOOD JOB.");
@@ -86,7 +90,7 @@ class EndingState extends FlxState
 			ending.animation.play("celebrate");
 		}
 		
-		text.start(0.05, false, false, null, null);
+		text.start(0.05, false, false, null, completeText);
 		add(text);
 		
 		super.create();
@@ -94,8 +98,19 @@ class EndingState extends FlxState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		
+		if (continued)
+		{
+			if (FlxG.keys.anyJustPressed(["ENTER", "SPACE", "W", "A", "S", "D", "J", "K", "L", "UP", "LEFT", "RIGHT", "DOWN"]))
+			{
+				FlxG.switchState(new MenuState());
+			}
+		}
 		
 		super.update(elapsed);
+	}
+	
+	function completeText()
+	{
+		continued = true;
 	}
 }
