@@ -6,7 +6,7 @@
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 	<!--or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"!-->
-	<app preloader="flixel.system.FlxPreloader" />
+	<app preloader="MyPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2 -->
 	<set name="SWF_VERSION" value="11.8" />
@@ -29,7 +29,11 @@
 
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
-	<assets path="assets" />
+	<assets path="assets"/>
+		
+	<assets path="assets" if="flash">
+		<music path="music/Bitte-0002.mp3" id="music"/>
+	</assets>
 
 	<!--------------------------------LIBRARIES------------------------------------->
 
@@ -78,5 +82,6 @@
 
 	<!--------------------------------CUSTOM---------------------------------------->
 
-	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<haxedef name="as3_native" if="flash"/>
+	<haxeflag name="-swf-lib" value="NewgroundsAPI.swc" if="flash"/>
 </project>
