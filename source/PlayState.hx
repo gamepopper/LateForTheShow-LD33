@@ -39,6 +39,7 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
+		FlxG.camera.bgColor = FlxColor.WHITE;
 		
 		Reg.GotBody = false;
 		Reg.GotFeet = false;
@@ -46,10 +47,6 @@ class PlayState extends FlxState
 		Reg.GotHead = false;
 		Reg.GotTail = false;
 		Reg.ItemCount = 0;
-		
-		FlxG.debugger.drawDebug = true;
-		
-		FlxG.camera.bgColor = FlxColor.WHITE;
 		
 		room = new Room(player, objectGroup, this);
 		player = new Player();
