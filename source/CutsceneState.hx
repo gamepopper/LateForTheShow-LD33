@@ -112,6 +112,7 @@ class CutsceneState extends FlxState
 	
 	function NextState()
 	{
+		FlxG.sound.playMusic("music", 1, true);
 		FlxG.switchState(new MenuState());
 	}
 }

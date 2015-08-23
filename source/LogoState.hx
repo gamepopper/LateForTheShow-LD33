@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.math.FlxMath;
+import flixel.system.FlxSound;
 import flixel.util.FlxTimer;
 
 /**
@@ -19,6 +20,8 @@ class LogoState extends FlxState
 	var goIn:Bool = true;
 	var timer:FlxTimer = new FlxTimer();
 	
+	var glitch:FlxSound = new FlxSound();
+	
 	override public function create():Void 
 	{
 		sprite.loadGraphic("assets/images/gp.png");
@@ -31,6 +34,9 @@ class LogoState extends FlxState
 		FlxG.camera.antialiasing = false;
 		
 		timer.start(3, stateCallback, 1);
+		
+		glitch.loadEmbedded("assets/sounds/glitch04.wav");
+		glitch.play();
 		
 		super.create();
 	}
@@ -55,6 +61,7 @@ class LogoState extends FlxState
 	{
 		if (goIn)
 		{
+			glitch.play();
 			goIn = false;
 			timer.start(3, stateCallback, 1);
 		}
